@@ -16,7 +16,7 @@ export default function HabitRow(props) {
       setDate(today);
       onChange();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

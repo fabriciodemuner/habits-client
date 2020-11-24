@@ -28,7 +28,7 @@ export default function AddHabit(props) {
       setAdd(false);
       onChange();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

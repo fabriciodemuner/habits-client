@@ -16,7 +16,7 @@ export default function EditHabit(props) {
       setEdit(false);
       onChange();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -37,7 +37,7 @@ export default function EditHabit(props) {
       setEdit(false);
       onChange();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

@@ -20,8 +20,13 @@ export default function EditHabit(props) {
     }
   }
 
-  async function handleUpdate(option) {
-    if (option === "cancel" || (nameValue === row.name && descriptionValue === row.description)) {
+  function cancelUpdate() {
+    setEdit(false);
+    return;
+  }
+
+  async function handleUpdate() {
+    if (nameValue === row.name && descriptionValue === row.description) {
       setEdit(false);
       return;
     }
@@ -54,7 +59,7 @@ export default function EditHabit(props) {
       <input type="text" value={nameValue} onChange={(e) => setName(e.target.value)}></input>
       <input type="text" value={descriptionValue} onChange={(e) => setDesc(e.target.value)}></input>
       <button onClick={handleUpdate}>Save changes</button>
-      <button onClick={() => handleUpdate("cancel")}>Cancel</button>
+      <button onClick={cancelUpdate}>Cancel</button>
       <button onClick={handleDelete}>Delete Habit</button>
       {invalidInputMessage}
     </div>

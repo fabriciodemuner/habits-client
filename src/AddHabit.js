@@ -9,11 +9,11 @@ export default function AddHabit(props) {
   const [descriptionValue, setDesc] = useState("");
   const [validInputs, setValidInputs] = useState(true);
 
-  async function handleNewHabit(option) {
-    if (option === "cancel") {
-      setAdd(false);
-      return;
-    }
+  function cancelNewHabit() {
+    setAdd(false);
+    return;
+  }
+  async function handleNewHabit() {
     if (!nameValue || !descriptionValue) {
       setValidInputs(false);
       return;
@@ -45,7 +45,7 @@ export default function AddHabit(props) {
       <input type="text" value={nameValue} onChange={(e) => setName(e.target.value)}></input>
       <input type="text" value={descriptionValue} onChange={(e) => setDesc(e.target.value)}></input>
       <button onClick={handleNewHabit}>Save Habit</button>
-      <button onClick={() => handleNewHabit("cancel")}>Cancel</button>
+      <button onClick={cancelNewHabit}>Cancel</button>
       {invalidInputMessage}
     </div>
   );

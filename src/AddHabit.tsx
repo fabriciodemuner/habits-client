@@ -3,7 +3,13 @@ import Axios from "axios";
 import { API_HOST } from "./constants";
 
 const post = Axios.post;
-export default function AddHabit(props) {
+
+type AddHabitProps = {
+  onChange: () => void;
+  setAdd: (b: boolean) => void;
+};
+
+export default function AddHabit(props: AddHabitProps) {
   const { onChange, setAdd } = props;
   const [nameValue, setName] = useState("");
   const [descriptionValue, setDesc] = useState("");

@@ -4,7 +4,22 @@ import { API_HOST } from "./constants";
 import EditHabit from "./EditHabit";
 
 const put = Axios.put;
-export default function HabitRow(props) {
+
+export type Row = {
+  id: number;
+  name: string;
+  description: string;
+  streak: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type HabitRowProps = {
+  row: Row;
+  onChange: () => void;
+};
+
+export default function HabitRow(props: HabitRowProps) {
   const { row, onChange } = props;
   const today = JSON.stringify(new Date()).slice(1, 11);
   const [date, setDate] = useState(today);

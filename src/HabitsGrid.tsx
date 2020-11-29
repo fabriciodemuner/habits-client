@@ -1,7 +1,12 @@
 import React from "react";
-import HabitRow from "./HabitRow";
+import HabitRow, { Row } from "./HabitRow";
 
-export default function HabitsGrid(props) {
+type HabitGridProps = {
+  rows: Row[];
+  onChange: () => void;
+};
+
+export default function HabitsGrid(props: HabitGridProps) {
   const { rows, onChange } = props;
 
   return (

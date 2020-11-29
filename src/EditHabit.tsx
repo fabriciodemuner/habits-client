@@ -4,7 +4,14 @@ import { API_HOST } from "./constants";
 
 const put = Axios.put;
 const del = Axios.delete;
-export default function EditHabit(props) {
+
+type EditHabitProps = {
+  row: any;
+  onChange: () => void;
+  setEdit: (b: boolean) => void;
+};
+
+export default function EditHabit(props: EditHabitProps) {
   const { row, onChange, setEdit } = props;
   const [nameValue, setName] = useState(row.name);
   const [descriptionValue, setDesc] = useState(row.description);

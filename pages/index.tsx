@@ -4,11 +4,12 @@ import HabitsGrid from "../src/HabitsGrid";
 import Header from "../src/Header";
 import Axios from "axios";
 import { API_HOST } from "../src/constants";
+import { Row } from "../src/HabitRow";
 
 const get = Axios.get;
 function App() {
   const [loading, setLoading] = useState(true);
-  const [rows, setRows] = useState(null);
+  const [rows, setRows] = useState<Row[]>([]);
   const [add, setAdd] = useState(false);
 
   useEffect(() => {

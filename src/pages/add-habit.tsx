@@ -22,7 +22,6 @@ const AddHabit: React.FC<{}> = ({}) => {
     }
 
     try {
-      console.log(API_HOST);
       await post(`${API_HOST}/habit`, {
         name: values.name,
         description: values.description,

@@ -62,7 +62,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
   return (
     <Flex bg="tan" p={4} alignItems="center">
       <Box>
-        {process.env.NODE_ENV} | host:{process.env.API_HOST}
+        {process.env.NODE_ENV} | host:{process.env.NEXT_PUBLIC_API_HOST} or {process.env.API_HOST}
       </Box>
       <Heading mx="4">Habits Tracker</Heading>
       <Box ml={"auto"}>{body}</Box>

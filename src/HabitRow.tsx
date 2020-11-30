@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { API_HOST } from "./constants";
 import EditHabit from "./EditHabit";
+import WeekView from "./WeekView";
 
 const put = Axios.put;
 
@@ -9,6 +10,7 @@ export type Row = {
   id: number;
   name: string;
   description: string;
+  days: string[];
   streak: number;
   createdAt: Date;
   updatedAt: Date;
@@ -44,6 +46,7 @@ export default function HabitRow(props: HabitRowProps) {
       <p>
         Name: {row.name}. Streak: {row.streak}.
       </p>
+      <WeekView days={row.days} />
       <button onClick={() => setEdit(true)}>Edit Habit</button>
       <input type="date" value={date} onChange={(e) => setDate(e.target.value)}></input>
       <button onClick={toggleDate}>Toggle Date</button>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, Heading, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { ___PROD___ } from "../constants";
@@ -61,7 +61,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <Flex bg="tan" p={4} alignItems="center">
-      <Box>{!___PROD___ ? <p>development mode</p> : null}</Box>
+      {___PROD___ ? null : <Box>{process.env.NODE_ENV} env</Box>}
       <Heading mx="4">Habits Tracker</Heading>
       <Box ml={"auto"}>{body}</Box>
     </Flex>

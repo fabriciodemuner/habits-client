@@ -61,7 +61,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <Flex bg="tan" p={4} alignItems="center">
-      <Box>{!___PROD___ ? <p>development mode</p> : null}</Box>
+      <Box>{___PROD___ ? null : <p>{process.env.NODE_ENV} env</p>}</Box>
       <Heading mx="4">Habits Tracker</Heading>
       <Box ml={"auto"}>{body}</Box>
     </Flex>

@@ -3,6 +3,7 @@ import Axios from "axios";
 import { API_HOST } from "./constants";
 import EditHabit from "./EditHabit";
 import WeekView from "./WeekView";
+import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 
 const put = Axios.put;
 
@@ -42,14 +43,19 @@ export default function HabitRow(props: HabitRowProps) {
   }
 
   return (
-    <div>
-      <p>
-        Name: {row.name}. Streak: {row.streak}.
-      </p>
-      <WeekView days={row.days} />
-      <button onClick={() => setEdit(true)}>Edit Habit</button>
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)}></input>
-      <button onClick={toggleDate}>Toggle Date</button>
-    </div>
+    <Box mt="4" mx="2">
+      <Heading size="lg">{row.name}</Heading>
+      <Text my="2">Streak: {row.streak}</Text>
+      <Flex alignItems="center">
+        <WeekView days={row.days} />
+        <Box>
+          <Input type="date" value={date} onChange={(e) => setDate(e.target.value)}></Input>
+          <Button onClick={toggleDate}>Toggle Date</Button>
+          <Button m="2" onClick={() => setEdit(true)}>
+            Edit Habit
+          </Button>
+        </Box>
+      </Flex>
+    </Box>
   );
 }

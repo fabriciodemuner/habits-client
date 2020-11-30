@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import AddHabit from "../src/AddHabit";
-import HabitsGrid from "../src/HabitsGrid";
-import Header from "../src/Header";
+import AddHabit from "../AddHabit";
+import HabitsGrid from "../HabitsGrid";
 import Axios from "axios";
-import { API_HOST } from "../src/constants";
-import { Row } from "../src/HabitRow";
+import { API_HOST } from "../constants";
+import { Row } from "../HabitRow";
+import { Layout } from "../components/Layout";
+import { Button, Heading } from "@chakra-ui/react";
 
 const get = Axios.get;
 function App() {
@@ -30,16 +31,15 @@ function App() {
   const addDiv = add ? (
     <AddHabit onChange={getHabits} setAdd={setAdd} />
   ) : (
-    <button onClick={() => setAdd(true)}>Add Habit</button>
+    <Button onClick={() => setAdd(true)}>Add Habit</Button>
   );
 
   return (
-    <div>
-      <Header />
+    <Layout>
       {gridDiv}
       <br />
       {addDiv}
-    </div>
+    </Layout>
   );
 }
 

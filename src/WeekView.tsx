@@ -1,8 +1,18 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Row } from "./HabitRow";
+import WeekDay from "./WeekDay";
 
 type WeekViewProps = {
   days: Row["days"];
+};
+
+type Week = Day[];
+
+export type Day = {
+  key: number;
+  day: string;
+  done: boolean;
 };
 
 function newUTCDate(idx: number): string {
@@ -15,7 +25,7 @@ export default function WeekView(props: WeekViewProps) {
   const { days } = props;
   if (!days) return <p>erro</p>;
 
-  const week: { key: number; day: string; done: boolean }[] = [];
+  const week: Week = [];
   for (let idx = 0; idx < 7; idx++) {
     const day = newUTCDate(idx);
     const done = days.some((e) => e === day);
@@ -23,12 +33,10 @@ export default function WeekView(props: WeekViewProps) {
   }
 
   return (
-    <div>
+    <Box w="20em">
       {week.map((d) => (
-        <p>
-          {d.day}: {d.done ? "Done " : "nah "}
-        </p>
+        <WeekDay day={d} />
       ))}
-    </div>
+    </Box>
   );
 }

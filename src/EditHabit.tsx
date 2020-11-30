@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { API_HOST } from "./constants";
+import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
 
 const put = Axios.put;
 const del = Axios.delete;
@@ -56,19 +57,36 @@ export default function EditHabit(props: EditHabitProps) {
   const invalidInputMessage = validInputs ? (
     <br />
   ) : (
-    <p>
+    <Text mt="2">
       Please fill both <i>name</i> and <i>description</i> fields.
-    </p>
+    </Text>
   );
   return (
-    <div>
-      <p>Edit Habit: {row.name}</p>
-      <input type="text" value={nameValue} onChange={(e) => setName(e.target.value)}></input>
-      <input type="text" value={descriptionValue} onChange={(e) => setDesc(e.target.value)}></input>
-      <button onClick={handleUpdate}>Save changes</button>
-      <button onClick={cancelUpdate}>Cancel</button>
-      <button onClick={handleDelete}>Delete Habit</button>
-      {invalidInputMessage}
-    </div>
+    <Flex mx="4" alignItems="center">
+      <Box>
+        <Box>
+          <Text>Name:</Text>
+          <Input type="text" value={nameValue} onChange={(e) => setName(e.target.value)}></Input>
+        </Box>
+        <Box>
+          <Text>Description:</Text>
+          <Input
+            type="text"
+            value={descriptionValue}
+            onChange={(e) => setDesc(e.target.value)}
+          ></Input>
+        </Box>
+        {invalidInputMessage}
+      </Box>
+      <Flex direction="column" mx="auto">
+        <Button mb="2" onClick={handleUpdate}>
+          Save
+        </Button>
+        <Button mb="2" onClick={cancelUpdate}>
+          Cancel
+        </Button>
+        <Button onClick={handleDelete}>Delete</Button>
+      </Flex>
+    </Flex>
   );
 }

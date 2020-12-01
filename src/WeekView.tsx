@@ -1,7 +1,6 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { Habit } from "./HabitRow";
-import WeekDay from "./WeekDay";
 
 type WeekViewProps = {
   days: Habit["days"];
@@ -34,8 +33,10 @@ export default function WeekView(props: WeekViewProps) {
 
   return (
     <Box w="20em">
-      {week.map((d) => (
-        <WeekDay day={d} />
+      {week.map((day) => (
+        <Text fontSize="sm">
+          {day.day}: {day.done ? "Done " : "nawh "}
+        </Text>
       ))}
     </Box>
   );

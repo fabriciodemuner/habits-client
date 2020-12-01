@@ -7,7 +7,7 @@ import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 
 const put = Axios.put;
 
-export type Row = {
+export type Habit = {
   id: number;
   name: string;
   description: string;
@@ -18,19 +18,19 @@ export type Row = {
 };
 
 type HabitRowProps = {
-  row: Row;
+  habit: Habit;
   onChange: () => void;
 };
 
 export default function HabitRow(props: HabitRowProps) {
-  const { row, onChange } = props;
+  const { habit, onChange } = props;
   const today = JSON.stringify(new Date()).slice(1, 11);
   const [date, setDate] = useState(today);
   const [edit, setEdit] = useState(false);
 
   async function toggleDate() {
     try {
-      await put(`${API_HOST}/habit/${row.id}/days`, { date });
+      await put(`${API_HOST}/habit/${habit.id}/days`, { date });
       setDate(today);
       onChange();
     } catch (err) {
@@ -39,15 +39,15 @@ export default function HabitRow(props: HabitRowProps) {
   }
 
   if (edit) {
-    return <EditHabit row={row} onChange={onChange} setEdit={setEdit} />;
+    return <EditHabit habit={habit} onChange={onChange} setEdit={setEdit} />;
   }
 
   return (
     <Box mt="4" mx="2">
-      <Heading size="lg">{row.name}</Heading>
-      <Text my="2">Streak: {row.streak}</Text>
+      <Heading size="lg">{habit.name}</Heading>
+      <Text my="2">Streak: {habit.streak}</Text>
       <Flex alignItems="center">
-        <WeekView days={row.days} />
+        <WeekView days={habit.days} />
         <Box>
           <Input type="date" value={date} onChange={(e) => setDate(e.target.value)}></Input>
           <Button onClick={toggleDate}>Toggle Date</Button>

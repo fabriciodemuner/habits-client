@@ -7,20 +7,20 @@ const put = Axios.put;
 const del = Axios.delete;
 
 type EditHabitProps = {
-  row: any;
+  habit: any;
   onChange: () => void;
   setEdit: (b: boolean) => void;
 };
 
 export default function EditHabit(props: EditHabitProps) {
-  const { row, onChange, setEdit } = props;
-  const [nameValue, setName] = useState(row.name);
-  const [descriptionValue, setDesc] = useState(row.description);
+  const { habit, onChange, setEdit } = props;
+  const [nameValue, setName] = useState(habit.name);
+  const [descriptionValue, setDesc] = useState(habit.description);
   const [validInputs, setValidInputs] = useState(true);
 
   async function handleDelete() {
     try {
-      await del(`${API_HOST}/habit/${row.id}`);
+      await del(`${API_HOST}/habit/${habit.id}`);
       setEdit(false);
       onChange();
     } catch (err) {
@@ -34,7 +34,7 @@ export default function EditHabit(props: EditHabitProps) {
   }
 
   async function handleUpdate() {
-    if (nameValue === row.name && descriptionValue === row.description) {
+    if (nameValue === habit.name && descriptionValue === habit.description) {
       setEdit(false);
       return;
     }
@@ -43,7 +43,7 @@ export default function EditHabit(props: EditHabitProps) {
       return;
     }
     try {
-      await put(`${API_HOST}/habit/${row.id}`, {
+      await put(`${API_HOST}/habit/${habit.id}`, {
         name: nameValue,
         description: descriptionValue,
       });

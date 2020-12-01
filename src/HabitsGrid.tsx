@@ -1,19 +1,19 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import HabitRow, { Row } from "./HabitRow";
+import HabitRow, { Habit } from "./HabitRow";
 
 type HabitGridProps = {
-  rows: Row[];
+  habits: Habit[];
   onChange: () => void;
 };
 
 export default function HabitsGrid(props: HabitGridProps) {
-  const { rows, onChange } = props;
+  const { habits, onChange } = props;
 
   return (
     <Box>
-      {rows.map((row) => (
-        <HabitRow key={row.id} row={row} onChange={onChange} />
+      {habits.map((habit) => (
+        <HabitRow key={habit.id} habit={habit} onChange={onChange} />
       ))}
     </Box>
   );

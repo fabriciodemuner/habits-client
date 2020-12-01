@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { Row } from "./HabitRow";
+import { Habit } from "./HabitRow";
 import WeekDay from "./WeekDay";
 
 type WeekViewProps = {
-  days: Row["days"];
+  days: Habit["days"];
 };
 
 type Week = Day[];

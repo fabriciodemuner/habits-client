@@ -1,7 +1,10 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 
-export type WrapperVariant = "small" | "regular";
+export enum WrapperVariant {
+  small = "small",
+  regular = "regular",
+}
 interface WrapperProps {
   variant?: WrapperVariant;
 }

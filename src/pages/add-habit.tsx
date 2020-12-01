@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
+import { WrapperVariant } from "../components/Wrapper";
 import { API_HOST } from "../constants";
 // import { useIsAuth } from '../utils/useIsAuth';
 
@@ -41,7 +42,7 @@ const AddHabit: React.FC<{}> = ({}) => {
   );
 
   return (
-    <Layout variant="small">
+    <Layout variant={WrapperVariant.small}>
       <Formik
         initialValues={{ name: "", description: "" }}
         onSubmit={async (values) => handleSubmit(values)}

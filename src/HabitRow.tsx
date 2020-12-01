@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { API_HOST } from "./constants";
 import EditHabit from "./EditHabit";
 import WeekView from "./WeekView";
-import { Box, Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
 
 const put = Axios.put;
 
@@ -24,38 +24,31 @@ type HabitRowProps = {
 
 export default function HabitRow(props: HabitRowProps) {
   const { habit, onChange } = props;
-  const today = JSON.stringify(new Date()).slice(1, 11);
-  const [date, setDate] = useState(today);
   const [edit, setEdit] = useState(false);
-
-  async function toggleDate() {
-    try {
-      await put(`${API_HOST}/habit/${habit.id}/days`, { date });
-      setDate(today);
-      onChange();
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   if (edit) {
     return <EditHabit habit={habit} onChange={onChange} setEdit={setEdit} />;
   }
 
   return (
-    <Box mt="4" mx="2">
-      <Heading size="lg">{habit.name}</Heading>
-      <Text my="2">Streak: {habit.streak}</Text>
-      <Flex alignItems="center">
-        <WeekView days={habit.days} />
-        <Box>
-          <Input type="date" value={date} onChange={(e) => setDate(e.target.value)}></Input>
-          <Button onClick={toggleDate}>Toggle Date</Button>
-          <Button m="2" onClick={() => setEdit(true)}>
-            Edit Habit
-          </Button>
-        </Box>
-      </Flex>
-    </Box>
+    <Flex mt="4" mx="2" alignItems="start">
+      <Box minW="40%">
+        <Flex alignItems="center">
+          <Heading size="sm">{habit.name}</Heading>
+          <IconButton
+            ml="2"
+            mr="auto"
+            onClick={() => setEdit(true)}
+            size="xs"
+            aria-label="Edit habit"
+            icon={<EditIcon />}
+          />
+        </Flex>
+        <Text my="2" fontSize="xs">
+          Streak: {habit.streak}
+        </Text>
+      </Box>
+      <WeekView habit={habit} onChange={onChange} />
+    </Flex>
   );
 }

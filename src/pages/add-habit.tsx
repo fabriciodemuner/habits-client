@@ -1,12 +1,12 @@
-import { Box, Button, Text } from "@chakra-ui/react";
-import Axios from "axios";
-import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { InputField } from "../components/InputField";
-import { Layout } from "../components/Layout";
-import { WrapperVariant } from "../components/Wrapper";
-import { API_HOST } from "../constants";
+import { Box, Button, Text } from '@chakra-ui/react';
+import Axios from 'axios';
+import { Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { InputField } from '../components/InputField';
+import { Layout } from '../components/Layout';
+import { WrapperVariant } from '../components/Wrapper';
+import { API_HOST } from '../constants';
 // import { useIsAuth } from '../utils/useIsAuth';
 
 const post = Axios.post;
@@ -46,16 +46,13 @@ const AddHabit: React.FC<{}> = ({}) => {
     <br />
   ) : (
     <Text mt="3" textAlign="center">
-      Please fill both <i>name</i> and <i>description</i> fields.{" "}
+      Please fill both <i>name</i> and <i>description</i> fields.
     </Text>
   );
 
   return (
     <Layout variant={WrapperVariant.small}>
-      <Formik
-        initialValues={{ name: "", description: "" }}
-        onSubmit={async (values) => handleSubmit(values)}
-      >
+      <Formik initialValues={{ name: '', description: '' }} onSubmit={async (values) => handleSubmit(values)}>
         {({ isSubmitting }) => (
           <Form>
             <InputField name="name" label="name" />

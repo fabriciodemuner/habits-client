@@ -1,6 +1,6 @@
-import { Box } from "@chakra-ui/react";
-import React from "react";
-import HabitRow, { Habit } from "./HabitRow";
+import { Box } from '@chakra-ui/react';
+import React from 'react';
+import HabitRow, { Habit } from './HabitRow';
 
 type HabitGridProps = {
   habits: Habit[];

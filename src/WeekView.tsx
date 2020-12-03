@@ -1,9 +1,9 @@
-import { CheckIcon, TimeIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import Axios from "axios";
-import React from "react";
-import { API_HOST } from "./constants";
-import { Habit } from "./HabitRow";
+import { CheckIcon, TimeIcon } from '@chakra-ui/icons';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import Axios from 'axios';
+import React from 'react';
+import { API_HOST } from './constants';
+import { Habit } from './HabitRow';
 
 const put = Axios.put;
 
@@ -49,13 +49,9 @@ export default function WeekView(props: WeekViewProps) {
   return (
     <Flex alignItems="center">
       {week.map((d) => (
-        <Button
-          colorScheme={d.done ? "green" : undefined}
-          border={"1px"}
-          onClick={() => handleClick(d.day)}
-        >
+        <Button colorScheme={d.done ? 'green' : undefined} border={'1px'} onClick={() => handleClick(d.day)}>
           <Flex direction="column">
-            <Text fontSize="sm">{d.day.split("-").slice(1, 3).reverse().join("/")}</Text>
+            <Text fontSize="sm">{d.day.split('-').slice(1, 3).reverse().join('/')}</Text>
             <Box>{d.done ? <CheckIcon /> : <TimeIcon />}</Box>
           </Flex>
         </Button>

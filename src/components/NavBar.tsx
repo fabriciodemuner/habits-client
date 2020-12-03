@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Box, Button, Flex, Heading, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { ___PROD___ } from "../constants";
+import React, { useState } from 'react';
+import { Box, Button, Flex, Heading, Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { ___PROD___ } from '../constants';
 
 interface NavbarProps {}
 
@@ -24,10 +24,10 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
   if (!loggedIn) {
     body = (
       <>
-        <NextLink href={"/login"}>
+        <NextLink href={'/login'}>
           <Link mr={2}>login</Link>
         </NextLink>
-        <NextLink href={"/register"}>
+        <NextLink href={'/register'}>
           <Link>register</Link>
         </NextLink>
       </>
@@ -72,7 +72,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
     <Flex bg="tan" p={4} alignItems="center">
       {___PROD___ ? null : <Box>{process.env.NODE_ENV} env</Box>}
       <Heading mx="4">Habits Tracker</Heading>
-      <Box ml={"auto"}>{body}</Box>
+      <Box ml={'auto'}>{body}</Box>
     </Flex>
   );
 };

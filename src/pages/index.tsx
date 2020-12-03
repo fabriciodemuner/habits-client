@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import HabitsGrid from "../HabitsGrid";
-import Axios from "axios";
-import { API_HOST } from "../constants";
-import { Habit } from "../HabitRow";
-import { Layout } from "../components/Layout";
+import React, { useEffect, useState } from 'react';
+import HabitsGrid from '../HabitsGrid';
+import Axios from 'axios';
+import { API_HOST } from '../constants';
+import { Habit } from '../HabitRow';
+import { Layout } from '../components/Layout';
 
 const get = Axios.get;
 function App() {
@@ -24,11 +24,7 @@ function App() {
     }
   }
 
-  return (
-    <Layout>
-      {loading ? <p>Loading...</p> : <HabitsGrid habits={habits} onChange={getHabits} />}
-    </Layout>
-  );
+  return <Layout>{loading ? <p>Loading...</p> : <HabitsGrid habits={habits} onChange={getHabits} />}</Layout>;
 }
 
 export default App;

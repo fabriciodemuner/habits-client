@@ -1,11 +1,11 @@
-import React from "react";
-import { Formik, Form } from "formik";
-import { Box, Button } from "@chakra-ui/react";
-import { Wrapper, WrapperVariant } from "../components/Wrapper";
-import { InputField } from "../components/InputField";
-import { useRouter } from "next/router";
-import Axios from "axios";
-import { API_HOST } from "../constants";
+import React from 'react';
+import { Formik, Form } from 'formik';
+import { Box, Button } from '@chakra-ui/react';
+import { Wrapper, WrapperVariant } from '../components/Wrapper';
+import { InputField } from '../components/InputField';
+import { useRouter } from 'next/router';
+import Axios from 'axios';
+import { API_HOST } from '../constants';
 
 interface RegisterProps {}
 const post = Axios.post;
@@ -16,7 +16,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
   return (
     <Wrapper variant={WrapperVariant.small}>
       <Formik
-        initialValues={{ email: "", name: "", password: "" }}
+        initialValues={{ email: '', name: '', password: '' }}
         onSubmit={async (values, { setErrors }) => {
           const response = await post(`${API_HOST}/user/register`, {
             ...values,
@@ -37,12 +37,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
             <Box mt={4}>
               <InputField name="password" label="password" type="password" />
             </Box>
-            <Button
-              mt={4}
-              type="submit"
-              isLoading={isSubmitting}
-              variantColor="teal"
-            >
+            <Button mt={4} type="submit" isLoading={isSubmitting} variantColor="teal">
               register
             </Button>
           </Form>

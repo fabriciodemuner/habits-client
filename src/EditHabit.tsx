@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Axios from "axios";
-import { API_HOST } from "./constants";
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import React, { useState } from 'react';
+import Axios from 'axios';
+import { API_HOST } from './constants';
+import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 
 const put = Axios.put;
 const del = Axios.delete;
@@ -70,11 +70,7 @@ export default function EditHabit(props: EditHabitProps) {
         </Box>
         <Box>
           <Text>Description:</Text>
-          <Input
-            type="text"
-            value={descriptionValue}
-            onChange={(e) => setDesc(e.target.value)}
-          ></Input>
+          <Input type="text" value={descriptionValue} onChange={(e) => setDesc(e.target.value)}></Input>
         </Box>
         {invalidInputMessage}
       </Box>

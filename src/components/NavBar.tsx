@@ -9,7 +9,16 @@ interface NavbarProps {}
 export const NavBar: React.FC<NavbarProps> = ({}) => {
   const router = useRouter();
   const [logoutFetching, setLogoutFetching] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(() => {
+    const logged = router.query.logged;
+    if (typeof logged === 'string') return Boolean(logged);
+    return false;
+  });
+  const [name, setName] = useState(() => {
+    const name = router.query.name;
+    console.log(router.query);
+    if (typeof name === 'string') return name;
+  });
 
   let body = null;
   if (!loggedIn) {
@@ -29,7 +38,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
         <Button
           ml={2}
           onClick={() => {
-            router.push("/");
+            router.push(`/?logged=${loggedIn}&name=${name}`, '/');
           }}
           variant="outline"
         >
@@ -38,13 +47,13 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
         <Button
           ml={2}
           onClick={() => {
-            router.push("/add-habit");
+            router.push(`/add-habit?logged=${loggedIn}&name=${name}`, '/add-habit');
           }}
           variant="outline"
         >
           add habit
         </Button>
-        <Box ml={2}>Username</Box>
+        <Box ml={2}>{name || 'username'}</Box>
         <Button
           ml={2}
           onClick={() => {

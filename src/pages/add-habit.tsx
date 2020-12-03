@@ -14,6 +14,15 @@ const post = Axios.post;
 const AddHabit: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [validInputs, setValidInputs] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(() => {
+    const logged = router.query.logged;
+    if (typeof logged === 'string') return Boolean(logged);
+    return false;
+  });
+  const [name, setName] = useState(() => {
+    const name = router.query.name;
+    if (typeof name === 'string') return name;
+  });
   // useIsAuth();
 
   async function handleSubmit(values: { name: string; description: string }) {
@@ -30,7 +39,7 @@ const AddHabit: React.FC<{}> = ({}) => {
     } catch (err) {
       console.error(err);
     }
-    router.push("/");
+    router.push(`/?logged=${loggedIn}&name=${name}`, '/');
   }
 
   const invalidInputMessage = validInputs ? (

@@ -7,23 +7,12 @@ import { InputField } from '../components/InputField';
 import { Layout } from '../components/Layout';
 import { WrapperVariant } from '../components/Wrapper';
 import { API_HOST } from '../constants';
-// import { useIsAuth } from '../utils/useIsAuth';
 
 const post = Axios.post;
 
 const AddHabit: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [validInputs, setValidInputs] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(() => {
-    const logged = router.query.logged;
-    if (typeof logged === 'string') return Boolean(logged);
-    return false;
-  });
-  const [name, setName] = useState(() => {
-    const name = router.query.name;
-    if (typeof name === 'string') return name;
-  });
-  // useIsAuth();
 
   async function handleSubmit(values: { name: string; description: string }) {
     if (!values.name || !values.description) {
@@ -39,7 +28,7 @@ const AddHabit: React.FC<{}> = ({}) => {
     } catch (err) {
       console.error(err);
     }
-    router.push(`/?logged=${loggedIn}&name=${name}`, '/');
+    router.push('/');
   }
 
   const invalidInputMessage = validInputs ? (

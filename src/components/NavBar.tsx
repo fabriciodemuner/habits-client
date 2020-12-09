@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, Flex, Heading, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { ___PROD___ } from '../constants';
+import useUser from '../common/helpers/useUser';
+import Axios from 'axios';
 
 interface NavbarProps {}
 
 export const NavBar: React.FC<NavbarProps> = ({}) => {
+  const { user, mutateUser, isLoading } = useUser();
   const router = useRouter();
-  const [logoutFetching, setLogoutFetching] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(() => {
-    const logged = router.query.logged;
-    if (typeof logged === 'string') return Boolean(logged);
-    return false;
-  });
-  const [name, setName] = useState(() => {
-    const name = router.query.name;
-    console.log(router.query);
-    if (typeof name === 'string') return name;
-  });
 
   let body = null;
-  if (!loggedIn) {
+  if (isLoading) body = <div>Loading...</div>;
+  else if (!user?.isLoggedIn) {
     body = (
       <>
         <NextLink href={'/login'}>
@@ -38,7 +31,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
         <Button
           ml={2}
           onClick={() => {
-            router.push(`/?logged=${loggedIn}&name=${name}`, '/');
+            router.push('/');
           }}
           variant="outline"
         >
@@ -47,23 +40,25 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
         <Button
           ml={2}
           onClick={() => {
-            router.push(`/add-habit?logged=${loggedIn}&name=${name}`, '/add-habit');
+            router.push('/add-habit');
           }}
           variant="outline"
         >
           add habit
         </Button>
-        <Box ml={2}>{name || 'username'}</Box>
-        <Button
-          ml={2}
-          onClick={() => {
-            setLoggedIn(false);
-          }}
-          isLoading={logoutFetching}
-          variant="link"
-        >
-          logout
-        </Button>
+        <Box ml={2}>{user.name}</Box>
+        <NextLink href="/api/logout">
+          <Button
+            ml={2}
+            onClick={async (e) => {
+              e.preventDefault();
+              await mutateUser(Axios.put('/api/logout'));
+            }}
+            variant="link"
+          >
+            logout
+          </Button>
+        </NextLink>
       </Flex>
     );
   }

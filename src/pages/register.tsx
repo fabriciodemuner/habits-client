@@ -18,7 +18,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
       <Formik
         initialValues={{ email: '', name: '', password: '' }}
         onSubmit={async (values, { setErrors }) => {
-          const response = await post(`${API_HOST}/user/register`, {
+          const response = await post(`${API_HOST}/auth/register`, {
             ...values,
           });
           if (response.data?.register?.errors) {

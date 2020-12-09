@@ -2,6 +2,12 @@
   "name": "habits",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+  },
   "dependencies": {
     "@chakra-ui/icons": "1.0.1",
     "@chakra-ui/react": "1.0.1",
@@ -21,11 +27,8 @@
     "swr": "0.3.9",
     "typescript": "4.1.2"
   },
-  "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
-    "start": "next start",
-    "format": "prettier --write \"src/**/*.ts(x)\""
+  "devDependencies": {
+    "prettier": "2.2.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,8 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "prettier": "2.2.1"
   }
 }

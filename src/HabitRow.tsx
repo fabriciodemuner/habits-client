@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import Axios from 'axios';
 import EditHabit from './EditHabit';
 import WeekView from './WeekView';
 import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
-
-const put = Axios.put;
 
 export type Habit = {
   id: number;

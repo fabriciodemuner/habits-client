@@ -8,8 +8,6 @@ import Axios from 'axios';
 import { API_HOST } from '../constants';
 
 interface RegisterProps {}
-const post = Axios.post;
-
 const Register: React.FC<RegisterProps> = ({}) => {
   const router = useRouter();
 
@@ -18,13 +16,13 @@ const Register: React.FC<RegisterProps> = ({}) => {
       <Formik
         initialValues={{ email: '', name: '', password: '' }}
         onSubmit={async (values, { setErrors }) => {
-          const response = await post(`${API_HOST}/auth/register`, {
+          const response = await Axios.post(`${API_HOST}/auth/register`, {
             ...values,
           });
           if (response.data?.register?.errors) {
             // setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data.id) {
-            router.push(`/?logged=true&name=${values.email}`, '/');
+            router.push(`/?logged=true&name=${values.email}`, '/'); // TODO
           }
         }}
       >

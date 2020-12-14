@@ -9,8 +9,6 @@ import { Layout } from '../components/Layout';
 import { WrapperVariant } from '../components/Wrapper';
 import { API_HOST } from '../constants';
 
-const post = Axios.post;
-
 const AddHabit: React.FC<{}> = ({}) => {
   const { user } = useUser();
   const router = useRouter();
@@ -23,7 +21,7 @@ const AddHabit: React.FC<{}> = ({}) => {
     }
     if (user) {
       try {
-        await post(
+        await Axios.post(
           `${API_HOST}/habit`,
           {
             name: values.name,

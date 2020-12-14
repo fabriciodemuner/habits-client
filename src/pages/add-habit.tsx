@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import useUser from '../common/helpers/useUser';
 import { InputField } from '../components/InputField';
 import { Layout } from '../components/Layout';
 import { WrapperVariant } from '../components/Wrapper';
@@ -11,6 +12,7 @@ import { API_HOST } from '../constants';
 const post = Axios.post;
 
 const AddHabit: React.FC<{}> = ({}) => {
+  const { user } = useUser();
   const router = useRouter();
   const [validInputs, setValidInputs] = useState(true);
 
@@ -19,16 +21,21 @@ const AddHabit: React.FC<{}> = ({}) => {
       setValidInputs(false);
       return;
     }
-
-    try {
-      await post(`${API_HOST}/habit`, {
-        name: values.name,
-        description: values.description,
-      });
-    } catch (err) {
-      console.error(err);
+    if (user) {
+      try {
+        await post(
+          `${API_HOST}/habit`,
+          {
+            name: values.name,
+            description: values.description,
+          },
+          { headers: { Authorization: `Bearer ${user.accessToken}` } },
+        );
+      } catch (err) {
+        console.error(err);
+      }
+      router.push('/');
     }
-    router.push('/');
   }
 
   const invalidInputMessage = validInputs ? (

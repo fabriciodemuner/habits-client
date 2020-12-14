@@ -2,10 +2,9 @@ import { CheckIcon, TimeIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import Axios from 'axios';
 import React from 'react';
+import useUser from './common/helpers/useUser';
 import { API_HOST } from './constants';
 import { Habit } from './HabitRow';
-
-const put = Axios.put;
 
 type WeekViewProps = {
   habit: Habit;
@@ -27,6 +26,7 @@ function newUTCDate(idx: number): string {
 }
 
 export default function WeekView(props: WeekViewProps) {
+  const { user } = useUser();
   const { habit, onChange } = props;
   if (!habit.days) return <p>erro</p>;
 
@@ -38,11 +38,13 @@ export default function WeekView(props: WeekViewProps) {
   }
 
   async function handleClick(day: string) {
-    try {
-      await put(`${API_HOST}/habit/${habit.id}/days`, { date: day });
-      onChange();
-    } catch (err) {
-      console.error(err);
+    if (user) {
+      try {
+        await Axios.put(`${API_HOST}/habit/${habit.id}/days`, { date: day }, { headers: { Authorization: `Bearer ${user.accessToken}` } });
+        onChange();
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import { API_HOST } from './constants';
 import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
-
-const put = Axios.put;
-const del = Axios.delete;
+import useUser from './common/helpers/useUser';
 
 type EditHabitProps = {
   habit: any;
@@ -13,18 +11,21 @@ type EditHabitProps = {
 };
 
 export default function EditHabit(props: EditHabitProps) {
+  const { user } = useUser();
   const { habit, onChange, setEdit } = props;
   const [nameValue, setName] = useState(habit.name);
   const [descriptionValue, setDesc] = useState(habit.description);
   const [validInputs, setValidInputs] = useState(true);
 
   async function handleDelete() {
-    try {
-      await del(`${API_HOST}/habit/${habit.id}`);
-      setEdit(false);
-      onChange();
-    } catch (err) {
-      console.error(err);
+    if (user) {
+      try {
+        await Axios.delete(`${API_HOST}/habit/${habit.id}`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
+        setEdit(false);
+        onChange();
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -42,15 +43,21 @@ export default function EditHabit(props: EditHabitProps) {
       setValidInputs(false);
       return;
     }
-    try {
-      await put(`${API_HOST}/habit/${habit.id}`, {
-        name: nameValue,
-        description: descriptionValue,
-      });
-      setEdit(false);
-      onChange();
-    } catch (err) {
-      console.error(err);
+    if (user) {
+      try {
+        await Axios.put(
+          `${API_HOST}/habit/${habit.id}`,
+          {
+            name: nameValue,
+            description: descriptionValue,
+          },
+          { headers: { Authorization: `Bearer ${user.accessToken}` } },
+        );
+        setEdit(false);
+        onChange();
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 

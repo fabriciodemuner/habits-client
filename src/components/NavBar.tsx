@@ -5,7 +5,9 @@ import { useRouter } from 'next/router';
 import { ___PROD___ } from '../constants';
 import useUser from '../common/helpers/useUser';
 import Axios from 'axios';
+import { PlusSquareIcon } from '@chakra-ui/icons';
 import { CgProfile } from 'react-icons/cg';
+import { FiHome, FiLogOut } from 'react-icons/fi';
 
 interface NavbarProps {}
 
@@ -31,6 +33,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
       <Flex alignItems="center">
         <Button
           ml={2}
+          rightIcon={<FiHome />}
           onClick={() => {
             router.push('/');
           }}
@@ -40,26 +43,26 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
         </Button>
         <Button
           ml={2}
+          rightIcon={<PlusSquareIcon />}
           onClick={() => {
             router.push('/add-habit');
           }}
           variant="outline"
         >
-          add habit
+          new habit
         </Button>
         <IconButton aria-label="profile" ml={2} icon={<CgProfile />} onClick={() => router.push('/profile')} variant="ghost" />
-        <NextLink href="/api/logout">
-          <Button
-            ml={2}
-            onClick={async (e) => {
-              e.preventDefault();
-              await mutateUser(Axios.put('/api/logout'));
-            }}
-            variant="link"
-          >
-            logout
-          </Button>
-        </NextLink>
+        <IconButton
+          aria-label="logout"
+          icon={<FiLogOut />}
+          ml={2}
+          onClick={async (e) => {
+            e.preventDefault();
+            await mutateUser(Axios.put('/api/logout'));
+            router.push('/login');
+          }}
+          variant="ghost"
+        />
       </Flex>
     );
   }

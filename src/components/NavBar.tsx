@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, Button, Flex, Heading, Link } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, IconButton, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { ___PROD___ } from '../constants';
 import useUser from '../common/helpers/useUser';
 import Axios from 'axios';
+import { CgProfile } from 'react-icons/cg';
 
 interface NavbarProps {}
 
@@ -46,7 +47,7 @@ export const NavBar: React.FC<NavbarProps> = ({}) => {
         >
           add habit
         </Button>
-        <Box ml={2}>{user.name}</Box>
+        <IconButton aria-label="profile" ml={2} icon={<CgProfile />} onClick={() => router.push('/profile')} variant="ghost" />
         <NextLink href="/api/logout">
           <Button
             ml={2}

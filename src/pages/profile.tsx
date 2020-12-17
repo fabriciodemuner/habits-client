@@ -5,7 +5,7 @@ import useUser from '../common/helpers/useUser';
 import { Layout } from '../components/Layout';
 import { WrapperVariant } from '../components/Wrapper';
 
-const AddHabit: React.FC<{}> = ({}) => {
+const Profile: React.FC<{}> = ({}) => {
   const { user } = useUser();
   const router = useRouter();
 
@@ -26,4 +26,4 @@ const AddHabit: React.FC<{}> = ({}) => {
   );
 };
 
-export default AddHabit;
+export default Profile;

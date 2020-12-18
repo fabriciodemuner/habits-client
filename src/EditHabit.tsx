@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { API_HOST } from './constants';
 import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import useUser from './common/helpers/useUser';
+import { BASE_URL, ENDPOINTS } from './pages/api/endpoints';
 
 type EditHabitProps = {
   habit: any;
@@ -20,7 +20,7 @@ export default function EditHabit(props: EditHabitProps) {
   async function handleDelete() {
     if (user) {
       try {
-        await Axios.delete(`${API_HOST}/habit/${habit.id}`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
+        await Axios.delete(`${BASE_URL}${ENDPOINTS.HABITS.delete(habit.id)}`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
         setEdit(false);
         onChange();
       } catch (err) {
@@ -46,7 +46,7 @@ export default function EditHabit(props: EditHabitProps) {
     if (user) {
       try {
         await Axios.put(
-          `${API_HOST}/habit/${habit.id}`,
+          `${BASE_URL}${ENDPOINTS.HABITS.update(habit.id)}`,
           {
             name: nameValue,
             description: descriptionValue,

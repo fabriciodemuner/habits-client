@@ -7,7 +7,7 @@ import useUser from '../common/helpers/useUser';
 import { InputField } from '../components/InputField';
 import { Layout } from '../components/Layout';
 import { WrapperVariant } from '../components/Wrapper';
-import { API_HOST } from '../constants';
+import { BASE_URL, ENDPOINTS } from './api/endpoints';
 
 const AddHabit: React.FC<{}> = ({}) => {
   const { user } = useUser();
@@ -22,7 +22,7 @@ const AddHabit: React.FC<{}> = ({}) => {
     if (user) {
       try {
         await Axios.post(
-          `${API_HOST}/habit`,
+          `${BASE_URL}${ENDPOINTS.HABITS.CREATE}`,
           {
             name: values.name,
             description: values.description,

@@ -1,13 +1,13 @@
 import withSession from '../../common/helpers/session';
 import Axios from 'axios';
-import { API_HOST } from '../../constants';
+import { BASE_URL, ENDPOINTS } from './endpoints';
 
 export default withSession(async (req, res) => {
   const { refreshToken } = req.body;
   let user = req.session.get('user');
   console.log('api-refreshToken: ', refreshToken);
   try {
-    const { data } = await Axios.post(`${API_HOST}/auth/refresh-token`, {
+    const { data } = await Axios.post(`${BASE_URL}${ENDPOINTS.AUTH.REFRESH_TOKEN}`, {
       refreshToken,
     });
     user = { ...user, ...data, isLoggedIn: true };

@@ -3,8 +3,8 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import Axios from 'axios';
 import React from 'react';
 import useUser from './common/helpers/useUser';
-import { API_HOST } from './constants';
 import { Habit } from './HabitRow';
+import { BASE_URL, ENDPOINTS } from './pages/api/endpoints';
 
 type WeekViewProps = {
   habit: Habit;
@@ -40,7 +40,7 @@ export default function WeekView(props: WeekViewProps) {
   async function handleClick(day: string) {
     if (user) {
       try {
-        await Axios.put(`${API_HOST}/habit/${habit.id}/days`, { date: day }, { headers: { Authorization: `Bearer ${user.accessToken}` } });
+        await Axios.put(`${BASE_URL}${ENDPOINTS.HABITS.days(habit.id)}`, { date: day }, { headers: { Authorization: `Bearer ${user.accessToken}` } });
         onChange();
       } catch (err) {
         console.error(err);

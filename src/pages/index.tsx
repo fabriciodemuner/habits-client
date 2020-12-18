@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import HabitsGrid from '../HabitsGrid';
 import Axios from 'axios';
-import { API_HOST } from '../constants';
 import { Habit } from '../HabitRow';
 import { Layout } from '../components/Layout';
 import useUser from '../common/helpers/useUser';
+import { BASE_URL, ENDPOINTS } from './api/endpoints';
 
 function App() {
   const { user, mutateUser } = useUser();
@@ -19,7 +19,7 @@ function App() {
     if (user) {
       if (user.isLoggedIn) {
         try {
-          const res = await Axios.get(`${API_HOST}/habit`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
+          const res = await Axios.get(`${BASE_URL}${ENDPOINTS.HABITS.LIST}`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
           setHabits(res.data);
         } catch (err) {
           if (err.response.status === 401 && user.refreshToken) {

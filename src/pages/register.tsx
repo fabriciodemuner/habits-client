@@ -5,7 +5,7 @@ import { Wrapper, WrapperVariant } from '../components/Wrapper';
 import { InputField } from '../components/InputField';
 import { useRouter } from 'next/router';
 import Axios from 'axios';
-import { API_HOST } from '../constants';
+import { BASE_URL, ENDPOINTS } from './api/endpoints';
 
 interface RegisterProps {}
 const Register: React.FC<RegisterProps> = ({}) => {
@@ -16,7 +16,7 @@ const Register: React.FC<RegisterProps> = ({}) => {
       <Formik
         initialValues={{ email: '', name: '', password: '' }}
         onSubmit={async (values, { setErrors }) => {
-          const response = await Axios.post(`${API_HOST}/auth/register`, {
+          const response = await Axios.post(`${BASE_URL}${ENDPOINTS.AUTH.REGISTER}`, {
             ...values,
           });
           if (response.data?.register?.errors) {

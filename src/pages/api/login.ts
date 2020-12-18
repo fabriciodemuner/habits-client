@@ -1,11 +1,11 @@
-import { API_HOST } from '../../constants';
 import withSession from '../../common/helpers/session';
 import Axios from 'axios';
+import { BASE_URL, ENDPOINTS } from './endpoints';
 
 export default withSession(async (req, res) => {
   const { email, password } = req.body;
   try {
-    const { data } = await Axios.post(`${API_HOST}/auth/login`, {
+    const { data } = await Axios.post(`${BASE_URL}${ENDPOINTS.AUTH.LOGIN}`, {
       email,
       password,
     });

@@ -7,7 +7,7 @@ import { Layout } from '../components/Layout';
 import useUser from '../common/helpers/useUser';
 
 function App() {
-  const { user } = useUser();
+  const { user, mutateUser } = useUser();
   const [loading, setLoading] = useState(true);
   const [habits, setHabits] = useState<Habit[]>([]);
 
@@ -22,6 +22,13 @@ function App() {
           const res = await Axios.get(`${API_HOST}/habit`, { headers: { Authorization: `Bearer ${user.accessToken}` } });
           setHabits(res.data);
         } catch (err) {
+          if (err.response.status === 401 && user.refreshToken) {
+            try {
+              await mutateUser(Axios.post('/api/refresh-token', { refreshToken: user.refreshToken }));
+            } catch (err) {
+              console.error(err);
+            }
+          }
           console.error(err);
         }
       }

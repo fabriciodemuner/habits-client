@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditHabit from './EditHabit';
 import WeekView from './WeekView';
 import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
@@ -9,7 +9,6 @@ export type Habit = {
   name: string;
   description: string;
   days: string[];
-  streak: number;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -22,6 +21,18 @@ type HabitRowProps = {
 export default function HabitRow(props: HabitRowProps) {
   const { habit, onChange } = props;
   const [edit, setEdit] = useState(false);
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    setStreak(
+      habit.days.reduce((streak, _curr, idx, days) => {
+        const oneDay = 1000 * 60 * 60 * 24;
+        const day = JSON.stringify(new Date(new Date().valueOf() - streak * oneDay)).slice(1, 11);
+        if (day === days[idx]) streak++;
+        return streak;
+      }, 0),
+    );
+  }, [habit]);
 
   if (edit) {
     return <EditHabit habit={habit} onChange={onChange} setEdit={setEdit} />;
@@ -35,7 +46,7 @@ export default function HabitRow(props: HabitRowProps) {
           <IconButton ml="2" mr="auto" onClick={() => setEdit(true)} size="xs" aria-label="Edit habit" icon={<EditIcon />} />
         </Flex>
         <Text my="2" fontSize="xs">
-          Streak: {habit.streak}
+          Streak: {streak}
         </Text>
       </Box>
       <WeekView habit={habit} onChange={onChange} />
